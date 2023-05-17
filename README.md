@@ -1,32 +1,46 @@
-**This is a template README.md.  Be sure to update this with project specific content that describes your api test project.**
-
 # outcome-auditing-api-tests
-API test suite for the `<digital service name>` using ScalaTest and [play-ws](https://github.com/playframework/play-ws) client.  
+API test suite for the `outcome-auditing` using ScalaTest and [play-ws](https://github.com/playframework/play-ws) client.  
 
 ## Running the tests
 
 Prior to executing the tests ensure you have:
- - Installed [MongoDB](https://docs.mongodb.com/manual/installation/) 
  - Installed/configured [service manager](https://github.com/hmrc/service-manager).  
 
 Run the following commands to start services locally:
 
-    docker run --rm -d --name mongo -d -p 27017:27017 mongo:4.0
-    sm --start IVHO -r --wait 100
+    sm --start OUTCOME_AUDITING OUTCOME_AUDITING_PROXY --appendArgs '{
+        "OUTCOME_AUDITING_PROXY": [
+            "-J-Dmicroservice.services.access-control.enabled=true",
+            "-J-Dmicroservice.services.access-control.allow-list.1=test-user-agent"
+        ],
+        "OUTCOME_AUDITING": [
+            "-J-Dauditing.consumer.baseUri.port=6001",
+            "-J-Dauditing.consumer.baseUri.host=localhost",
+            "-J-Dauditing.enabled=true"
+        ]
+    }'
 
-Using the `--wait 100` argument ensures a health check is run on all the services started as part of the profile. `100` refers to the given number of seconds to wait for services to pass health checks.    
+## Running specs
 
-Then execute the `run_tests.sh` script:
+Execute the `run_specs.sh` script:
 
-`./run_tests.sh <environment>`
+`./run-specs.sh`
 
-The tests default to the `local` environment.  For a complete list of supported param values, see:
- - `src/test/resources/application.conf` for **environment** 
+## Running ZAP specs - on a developer machine
 
-#### Running the tests against a test environment
+You can use the `run-local-zap-container.sh` script to build a local ZAP container that will allow you to run ZAP tests locally.  
+This will clone a copy of the dast-config-manager repository in this projects parent directory; it will require `make` to be available on your machine.  
+https://github.com/hmrc/dast-config-manager/#running-zap-locally has more information about how the zap container is built.
 
-To run the tests against an environment set the corresponding `host` environment property as specified under
- `<env>.host.services` in the [application.conf](src/test/resources/application.conf). 
+```bash
+./run-local-zap-container.sh --start
+./run-zap-specs.sh
+./run-local-zap-container.sh --stop
+``` 
+
+***Note:** Results of your ZAP run will not be placed in your target directory until you have run `./run-local-zap-container.sh --stop`*
+
+***Note:** `./run-local-zap-container.sh` should **NOT** be used when running in a CI environment!*
 
 ## Scalafmt
 

@@ -14,12 +14,8 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.test.api.models
+package uk.gov.hmrc.test.api.helpers
 
-import play.api.libs.json.{Json, OFormat}
-
-case class IndividualsLinks(name: String, href: String, title: String)
-
-object IndividualsLinks {
-  implicit val userJsonFormat: OFormat[IndividualsLinks] = Json.format[IndividualsLinks]
+object Endpoints {
+  val OUTCOME_AUDITING = "report/outcome"
 }

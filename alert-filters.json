@@ -1,0 +1,20 @@
+{
+  "add": [
+    {
+      "reason": "Weak Authentication",
+      "contextId": 1,
+      "url": "http:\/\/localhost:9935\/.*",
+      "ruleId": 10105,
+      "urlIsRegex": "true",
+      "newLevel": 0
+    },
+    {
+      "reason": "Weak Authentication",
+      "contextId": 1,
+      "url": "http:\/\/localhost:9965\/.*",
+      "ruleId": 10105,
+      "urlIsRegex": "true",
+      "newLevel": 0
+    }
+  ]
+}
