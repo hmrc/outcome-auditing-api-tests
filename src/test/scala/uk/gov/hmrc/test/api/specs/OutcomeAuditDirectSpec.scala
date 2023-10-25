@@ -49,7 +49,7 @@ class OutcomeAuditDirectSpec extends BaseSpec with WireMockTrait {
                 s"&& @.detail.submitter == 'dfe'" +
                 s"&& @.detail.submission.submissionType == 'nino'" +
                 s"&& @.detail.submission.submissionAttribute.nino == 'AB608580X'" +
-                s"&& @.detail.outcome.outcomeType == 'insights'" +
+                s"&& @.detail.outcome.outcomeType == 'Insights'" +
                 s"&& @.detail.outcome.decision == 'ACCEPTED'" +
                 s"&& @.detail.outcome.reasons == 'Some reason'" +
               ")]"
@@ -82,7 +82,7 @@ class OutcomeAuditDirectSpec extends BaseSpec with WireMockTrait {
                 s"&& @.detail.submission.submissionType == 'bank-account'" +
                 s"&& @.detail.submission.submissionAttribute.sortCode == '608580'" +
                 s"&& @.detail.submission.submissionAttribute.accountNumber == '48835625'" +
-                s"&& @.detail.outcome.outcomeType == 'insights'" +
+                s"&& @.detail.outcome.outcomeType == 'Insights'" +
                 s"&& @.detail.outcome.decision == 'ACCEPTED'" +
                 s"&& @.detail.outcome.reasons == 'Some reason'" +
               ")]"
@@ -115,7 +115,7 @@ class OutcomeAuditDirectSpec extends BaseSpec with WireMockTrait {
                 s"&& @.detail.submission.submissionType == 'bank-account'" +
                 s"&& @.detail.submission.submissionAttribute.sortCode == '608580'" +
                 s"&& @.detail.submission.submissionAttribute.accountNumber == '48835625'" +
-                s"&& @.detail.outcome.outcomeType == 'payment-allocation'" +
+                s"&& @.detail.outcome.outcomeType == 'PaymentAllocation'" +
                 s"&& @.detail.outcome.decision == 'PAYMENT_ALLOCATED'" +
                 s"&& @.detail.outcome.reasons == 'ACCOUNT_ALLOCATED_TO_DETAILS'" +
                 s"&& @.detail.outcome.evidence.sa_utr == '0123456789'" +
