@@ -8,11 +8,7 @@ Prior to executing the tests ensure you have:
 
 Run the following commands to start services locally:
 
-    sm --start OUTCOME_AUDITING OUTCOME_AUDITING_PROXY --appendArgs '{
-        "OUTCOME_AUDITING_PROXY": [
-            "-J-Dmicroservice.services.access-control.enabled=true",
-            "-J-Dmicroservice.services.access-control.allow-list.1=test-user-agent"
-        ],
+    sm --start OUTCOME_AUDITING --appendArgs '{
         "OUTCOME_AUDITING": [
             "-J-Dauditing.consumer.baseUri.port=6001",
             "-J-Dauditing.consumer.baseUri.host=localhost",

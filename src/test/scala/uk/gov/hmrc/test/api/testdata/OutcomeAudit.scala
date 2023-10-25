@@ -31,7 +31,7 @@ object OutcomeAudit {
       |    }
       |  },
       |  "outcome": {
-      |    "outcomeType": "insights",
+      |    "outcomeType": "Insights",
       |    "decision": "ACCEPTED",
       |    "reasons": "Some reason"
       |  }
@@ -49,7 +49,7 @@ object OutcomeAudit {
       |    }
       |  },
       |  "outcome": {
-      |    "outcomeType": "insights",
+      |    "outcomeType": "Insights",
       |    "decision": "ACCEPTED",
       |    "reasons": "Some reason"
       |  }
@@ -67,7 +67,7 @@ object OutcomeAudit {
       |    }
       |  },
       |  "outcome": {
-      |    "outcomeType": "payment-allocation",
+      |    "outcomeType": "PaymentAllocation",
       |    "decision": "PAYMENT_ALLOCATED",
       |    "reasons": "ACCOUNT_ALLOCATED_TO_DETAILS",
       |    "evidence": {
