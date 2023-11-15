@@ -33,7 +33,7 @@ object OutcomeAudit {
       |  "outcome": {
       |    "outcomeType": "Insights",
       |    "decision": "ACCEPTED",
-      |    "reasons": "Some reason"
+      |    "reasons": ["Some reason"]
       |  }
       |}""".stripMargin
 
@@ -51,7 +51,7 @@ object OutcomeAudit {
       |  "outcome": {
       |    "outcomeType": "Insights",
       |    "decision": "ACCEPTED",
-      |    "reasons": "Some reason"
+      |    "reasons": ["Some reason"]
       |  }
       |}""".stripMargin
 
@@ -69,7 +69,7 @@ object OutcomeAudit {
       |  "outcome": {
       |    "outcomeType": "PaymentAllocation",
       |    "decision": "PAYMENT_ALLOCATED",
-      |    "reasons": "ACCOUNT_ALLOCATED_TO_DETAILS",
+      |    "reasons": ["ACCOUNT_ALLOCATED_TO_DETAILS"],
       |    "evidence": {
       |      "sa_utr": "0123456789",
       |      "paye_ref": "ABC/A1234",

@@ -18,42 +18,34 @@ package uk.gov.hmrc.test.api.helpers
 
 import play.api.libs.json.Json
 import play.api.libs.ws.StandaloneWSRequest
-import uk.gov.hmrc.outcomeauditing.model.request.nino.NinoInsightsOutcomeRequest
-import uk.gov.hmrc.test.api.service.{OutcomeAuditDirectService, OutcomeAuditProxyService}
 import uk.gov.hmrc.outcomeauditing.model.response.Response
 import uk.gov.hmrc.outcomeauditing.model.response.Response.Implicits.responseFormat
 import uk.gov.hmrc.test.api.models.BadRequest
+import uk.gov.hmrc.test.api.service.{OutcomeAuditDirectService, OutcomeAuditProxyService}
 
 class OutcomeAuditCheckHelper {
   val outcomeAuditDirectService: OutcomeAuditDirectService = new OutcomeAuditDirectService
   val outcomeAuditProxyService: OutcomeAuditProxyService = new OutcomeAuditProxyService
 
-  def callOutcomeAuditingAPIDirectly(
-    outcomeAuditDetails: String
-  ): Response = {
-    val response: StandaloneWSRequest#Self#Response =
-      outcomeAuditDirectService.postOutcomeAuditDirectly(outcomeAuditDetails)
-    Json.parse(response.body).as[Response]
-  }
+  def callOutcomeAuditingAPIDirectly(outcomeAuditDetails: String): StandaloneWSRequest#Self#Response =
+    outcomeAuditDirectService.postOutcomeAuditDirectly(outcomeAuditDetails)
 
-  def callOutcomeAuditingViaProxy(
-    outcomeAuditDetails: String
-  ): Response = {
+  def callOutcomeAuditingViaProxy(outcomeAuditDetails: String): Response = {
     val response: StandaloneWSRequest#Self#Response =
       outcomeAuditProxyService.postOutcomeAuditViaProxy(outcomeAuditDetails)
     Json.parse(response.body).as[Response]
   }
 
   def parseInvalidOutcomeAuditCheckResponseFromAPI(
-    outcomeAuditDetails: String
-  ): BadRequest = {
+                                                    outcomeAuditDetails: String
+                                                  ): BadRequest = {
     val response: StandaloneWSRequest#Self#Response =
       callInvalidOutcomeAuditCheckResponseFromAPI(outcomeAuditDetails)
     Json.parse(response.body).as[BadRequest]
   }
 
   def callInvalidOutcomeAuditCheckResponseFromAPI(
-    outcomeAuditDetails: String
-  ): StandaloneWSRequest#Self#Response =
+                                                   outcomeAuditDetails: String
+                                                 ): StandaloneWSRequest#Self#Response =
     outcomeAuditProxyService.postInvalidOutcomeAuditCheck(outcomeAuditDetails)
 }

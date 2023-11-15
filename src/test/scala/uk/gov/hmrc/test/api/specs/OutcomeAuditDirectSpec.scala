@@ -34,8 +34,7 @@ class OutcomeAuditDirectSpec extends BaseSpec with WireMockTrait {
       val actual = outcomeAuditCheckHelper.callOutcomeAuditingAPIDirectly(OutcomeAudit.ninoInsightsInput)
 
       Then("the api returns a 200")
-      assertThat(actual.code).isEqualTo("ok")
-      assertThat(actual.message).isEqualTo(s"outcome from ${TestConfiguration.userAgent} processed")
+      assertThat(actual.status).isEqualTo(200)
 
       verify(
         delayedFunction(1.seconds)(
@@ -51,7 +50,7 @@ class OutcomeAuditDirectSpec extends BaseSpec with WireMockTrait {
                 s"&& @.detail.submission.submissionAttribute.nino == 'AB608580X'" +
                 s"&& @.detail.outcome.outcomeType == 'Insights'" +
                 s"&& @.detail.outcome.decision == 'ACCEPTED'" +
-                s"&& @.detail.outcome.reasons == 'Some reason'" +
+                s"&& @.detail.outcome.reasons == ['Some reason']" +
               ")]"
             )
           )
@@ -66,8 +65,7 @@ class OutcomeAuditDirectSpec extends BaseSpec with WireMockTrait {
       val actual = outcomeAuditCheckHelper.callOutcomeAuditingAPIDirectly(OutcomeAudit.bankAccountInput)
 
       Then("the api returns a 200")
-      assertThat(actual.code).isEqualTo("ok")
-      assertThat(actual.message).isEqualTo(s"outcome from ${TestConfiguration.userAgent} processed")
+      assertThat(actual.status).isEqualTo(200)
 
       verify(
         delayedFunction(1.seconds)(
@@ -84,7 +82,7 @@ class OutcomeAuditDirectSpec extends BaseSpec with WireMockTrait {
                 s"&& @.detail.submission.submissionAttribute.accountNumber == '48835625'" +
                 s"&& @.detail.outcome.outcomeType == 'Insights'" +
                 s"&& @.detail.outcome.decision == 'ACCEPTED'" +
-                s"&& @.detail.outcome.reasons == 'Some reason'" +
+                s"&& @.detail.outcome.reasons == ['Some reason']" +
               ")]"
             )
           )
@@ -99,8 +97,7 @@ class OutcomeAuditDirectSpec extends BaseSpec with WireMockTrait {
       val actual = outcomeAuditCheckHelper.callOutcomeAuditingAPIDirectly(OutcomeAudit.paymentAllocationInput)
 
       Then("the api returns a 200")
-      assertThat(actual.code).isEqualTo("ok")
-      assertThat(actual.message).isEqualTo(s"outcome from ${TestConfiguration.userAgent} processed")
+      assertThat(actual.status).isEqualTo(200)
 
       verify(
         delayedFunction(1.seconds)(
@@ -117,7 +114,7 @@ class OutcomeAuditDirectSpec extends BaseSpec with WireMockTrait {
                 s"&& @.detail.submission.submissionAttribute.accountNumber == '48835625'" +
                 s"&& @.detail.outcome.outcomeType == 'PaymentAllocation'" +
                 s"&& @.detail.outcome.decision == 'PAYMENT_ALLOCATED'" +
-                s"&& @.detail.outcome.reasons == 'ACCOUNT_ALLOCATED_TO_DETAILS'" +
+                s"&& @.detail.outcome.reasons == ['ACCOUNT_ALLOCATED_TO_DETAILS']" +
                 s"&& @.detail.outcome.evidence.sa_utr == '0123456789'" +
                 s"&& @.detail.outcome.evidence.paye_ref == 'ABC/A1234'" +
                 s"&& @.detail.outcome.evidence.full_name == 'Jane Smith'" +
