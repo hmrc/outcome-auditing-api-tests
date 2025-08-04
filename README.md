@@ -1,5 +1,5 @@
 # outcome-auditing-api-tests
-API test suite for the `outcome-auditing` using ScalaTest and [play-ws](https://github.com/playframework/play-ws) client.  
+API test suite for the `outcome-auditing` using [api-test-runner](https://github.com/hmrc/api-test-runner) library.  
 
 ## Running the tests
 
@@ -8,7 +8,7 @@ Prior to executing the tests ensure you have:
 
 Run the following commands to start services locally:
 
-    sm --start OUTCOME_AUDITING --appendArgs '{
+    sm2 --start OUTCOME_AUDITING --appendArgs '{
         "OUTCOME_AUDITING": [
             "-J-Dauditing.consumer.baseUri.port=6001",
             "-J-Dauditing.consumer.baseUri.host=localhost",
@@ -22,40 +22,17 @@ Execute the `run_specs.sh` script:
 
 `./run-specs.sh`
 
-## Running ZAP specs - on a developer machine
+This script takes two parameters:
 
-You can use the `run-local-zap-container.sh` script to build a local ZAP container that will allow you to run ZAP tests locally.  
-This will clone a copy of the dast-config-manager repository in this projects parent directory; it will require `make` to be available on your machine.  
-https://github.com/hmrc/dast-config-manager/#running-zap-locally has more information about how the zap container is built.
-
-```bash
-./run-local-zap-container.sh --start
-./run-zap-specs.sh
-./run-local-zap-container.sh --stop
-``` 
-
-***Note:** Results of your ZAP run will not be placed in your target directory until you have run `./run-local-zap-container.sh --stop`*
-
-***Note:** `./run-local-zap-container.sh` should **NOT** be used when running in a CI environment!*
+- `<ENV>` which is set to `local` by default
+- `<DAST>` which is set to `false` by default, but is used to run Dynamic Application Security Testing (DAST) tests by setting this value to `true` in Jenkins builds
 
 ## Scalafmt
 
-Check all project files are formatted as expected as follows:
+Check all project files are formatted as expected by running the following script:
 
 ```bash
-sbt scalafmtCheckAll scalafmtCheck
-```
-
-Format `*.sbt` and `project/*.scala` files as follows:
-
-```bash
-sbt scalafmtSbt
-```
-
-Format all project files as follows:
-
-```bash
-sbt scalafmtAll
+./scalafmt.sh
 ```
 
 ## License

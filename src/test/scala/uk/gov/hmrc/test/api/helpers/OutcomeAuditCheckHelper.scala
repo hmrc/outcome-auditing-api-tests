@@ -16,34 +16,14 @@
 
 package uk.gov.hmrc.test.api.helpers
 
-import play.api.libs.json.Json
+import play.api.libs.json.JsValue
 import play.api.libs.ws.StandaloneWSRequest
-import uk.gov.hmrc.test.api.models.{BadRequest, OutcomeAuditResponse}
-import uk.gov.hmrc.test.api.service.{OutcomeAuditDirectService, OutcomeAuditProxyService}
+import uk.gov.hmrc.test.api.service.OutcomeAuditDirectService
 
 class OutcomeAuditCheckHelper {
+
   val outcomeAuditDirectService: OutcomeAuditDirectService = new OutcomeAuditDirectService
-  val outcomeAuditProxyService: OutcomeAuditProxyService   = new OutcomeAuditProxyService
 
-  def callOutcomeAuditingAPIDirectly(outcomeAuditDetails: String): StandaloneWSRequest#Self#Response =
+  def callOutcomeAuditingAPIDirectly(outcomeAuditDetails: JsValue): StandaloneWSRequest#Self#Response =
     outcomeAuditDirectService.postOutcomeAuditDirectly(outcomeAuditDetails)
-
-  def callOutcomeAuditingViaProxy(outcomeAuditDetails: String): OutcomeAuditResponse = {
-    val response: StandaloneWSRequest#Self#Response =
-      outcomeAuditProxyService.postOutcomeAuditViaProxy(outcomeAuditDetails)
-    Json.parse(response.body).as[OutcomeAuditResponse]
-  }
-
-  def parseInvalidOutcomeAuditCheckResponseFromAPI(
-    outcomeAuditDetails: String
-  ): BadRequest = {
-    val response: StandaloneWSRequest#Self#Response =
-      callInvalidOutcomeAuditCheckResponseFromAPI(outcomeAuditDetails)
-    Json.parse(response.body).as[BadRequest]
-  }
-
-  def callInvalidOutcomeAuditCheckResponseFromAPI(
-    outcomeAuditDetails: String
-  ): StandaloneWSRequest#Self#Response =
-    outcomeAuditProxyService.postInvalidOutcomeAuditCheck(outcomeAuditDetails)
 }

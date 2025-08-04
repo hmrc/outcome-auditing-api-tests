@@ -22,8 +22,7 @@ object TestConfiguration {
   val config: Config        = ConfigFactory.load()
   val env: String           = config.getString("environment")
   val defaultConfig: Config = config.getConfig("local")
-  val envConfig: Config     = config.getConfig(env).withFallback(defaultConfig)
-  val useZap: Boolean       = config.getBoolean("use.zap.proxy")
+  val envConfig: Config    = config.getConfig(env).withFallback(defaultConfig)
 
   def url(service: String): String = {
     val host = env match {
