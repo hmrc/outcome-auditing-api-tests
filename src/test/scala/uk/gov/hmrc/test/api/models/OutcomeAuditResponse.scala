@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 HM Revenue & Customs
+ * Copyright 2025 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,7 +17,8 @@
 package uk.gov.hmrc.test.api.models
 
 import play.api.libs.json.{Format, Json}
-final case class BadRequest(code: Int, description: String)
-object BadRequest {
-  implicit val badRequestResponseFormat: Format[BadRequest] = Json.format[BadRequest]
+
+case class OutcomeAuditResponse(code: String, message: String)
+object OutcomeAuditResponse {
+  implicit val responseFormat: Format[OutcomeAuditResponse] = Json.format[OutcomeAuditResponse]
 }

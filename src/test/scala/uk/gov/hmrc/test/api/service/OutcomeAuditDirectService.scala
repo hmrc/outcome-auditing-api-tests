@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 HM Revenue & Customs
+ * Copyright 2025 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,10 +16,10 @@
 
 package uk.gov.hmrc.test.api.service
 
-import play.api.libs.json.Json
+import play.api.libs.json.{JsValue, Json}
+import play.api.libs.ws.JsonBodyWritables.writeableOf_JsValue
 import play.api.libs.ws.StandaloneWSRequest
-import uk.gov.hmrc.outcomeauditing.model.request.nino.NinoInsightsOutcomeRequest
-import uk.gov.hmrc.test.api.client.HttpClient
+import uk.gov.hmrc.apitestrunner.http.HttpClient
 import uk.gov.hmrc.test.api.conf.TestConfiguration
 import uk.gov.hmrc.test.api.helpers.Endpoints
 
@@ -27,22 +27,21 @@ import scala.concurrent.Await
 import scala.concurrent.duration.DurationInt
 
 class OutcomeAuditDirectService extends HttpClient {
-  var outcomeAuditing: String             = TestConfiguration.url("outcome-auditing")
-  val userAgent: String = TestConfiguration.userAgent
-  val basicAuth: String = "Basic b3V0Y29tZS1hdWRpdGluZzpsb2NhbC10ZXN0LXRva2Vu"
-  val contentType: String = "application/json"
 
-  def postOutcomeAuditDirectly(
-    outcomeAuditDetails: String,
-    host: String = outcomeAuditing
-  ): StandaloneWSRequest#Self#Response =
+  val outcomeAuditing: String = TestConfiguration.url("outcome-auditing")
+  val userAgent: String       = TestConfiguration.userAgent
+  val basicAuth: String       = "Basic b3V0Y29tZS1hdWRpdGluZzpsb2NhbC10ZXN0LXRva2Vu"
+  val contentType: String     = "application/json"
+
+  def postOutcomeAuditDirectly(outcomeAuditDetails: JsValue): StandaloneWSRequest#Self#Response =
     Await.result(
-        post(
-          s"$host/${Endpoints.OUTCOME_AUDITING}",
-          outcomeAuditDetails,
-          ("Content-Type", s"${contentType}"),
-          ("User-Agent", s"${userAgent}"),
-          ("Authorization", s"${basicAuth}")
-        ), 10.seconds
+      mkRequest(s"$outcomeAuditing/${Endpoints.OUTCOME_AUDITING}")
+        .withHttpHeaders(
+          "Content-Type"  -> s"$contentType",
+          "User-Agent"    -> s"$userAgent",
+          "Authorization" -> s"$basicAuth"
+        )
+        .post(Json.toJson(outcomeAuditDetails)),
+      10.seconds
     )
 }

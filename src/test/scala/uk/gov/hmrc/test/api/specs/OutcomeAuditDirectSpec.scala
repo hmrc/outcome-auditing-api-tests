@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 HM Revenue & Customs
+ * Copyright 2025 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,7 +17,6 @@
 package uk.gov.hmrc.test.api.specs
 
 import com.github.tomakehurst.wiremock.client.WireMock.{matchingJsonPath, postRequestedFor, urlEqualTo, verify}
-import org.assertj.core.api.Assertions.assertThat
 import uk.gov.hmrc.test.api.conf.TestConfiguration
 import uk.gov.hmrc.test.api.testdata.OutcomeAudit
 
@@ -34,7 +33,7 @@ class OutcomeAuditDirectSpec extends BaseSpec with WireMockTrait {
       val actual = outcomeAuditCheckHelper.callOutcomeAuditingAPIDirectly(OutcomeAudit.ninoInsightsInput)
 
       Then("the api returns a 200")
-      assertThat(actual.status).isEqualTo(200)
+      assert(actual.status == 200)
 
       verify(
         delayedFunction(1.seconds)(
@@ -42,18 +41,18 @@ class OutcomeAuditDirectSpec extends BaseSpec with WireMockTrait {
             .withRequestBody(
               matchingJsonPath(
                 "$[?(" +
-                s"@.auditSource == '${TestConfiguration.expectedServiceName}'" +
-                s"&& @.auditType == 'NinoInsightsCipOutcomeSubmitted'" +
-                s"&& @.detail.userAgent == '${TestConfiguration.userAgent}'" +
-                s"&& @.detail.submitter == 'dfe'" +
-                s"&& @.detail.submission.submissionType == 'nino'" +
-                s"&& @.detail.submission.submissionAttribute.nino == 'AB608580X'" +
-                s"&& @.detail.outcome.outcomeType == 'Insights'" +
-                s"&& @.detail.outcome.decision == 'ACCEPTED'" +
-                s"&& @.detail.outcome.reasons == ['Some reason']" +
-              ")]"
+                  s"@.auditSource == '${TestConfiguration.expectedServiceName}'" +
+                  s"&& @.auditType == 'NinoInsightsCipOutcomeSubmitted'" +
+                  s"&& @.detail.userAgent == '${TestConfiguration.userAgent}'" +
+                  s"&& @.detail.submitter == 'dfe'" +
+                  s"&& @.detail.submission.submissionType == 'nino'" +
+                  s"&& @.detail.submission.submissionAttribute.nino == 'AB608580X'" +
+                  s"&& @.detail.outcome.outcomeType == 'Insights'" +
+                  s"&& @.detail.outcome.decision == 'ACCEPTED'" +
+                  s"&& @.detail.outcome.reasons == ['Some reason']" +
+                  ")]"
+              )
             )
-          )
         )
       )
     }
@@ -65,7 +64,7 @@ class OutcomeAuditDirectSpec extends BaseSpec with WireMockTrait {
       val actual = outcomeAuditCheckHelper.callOutcomeAuditingAPIDirectly(OutcomeAudit.bankAccountInput)
 
       Then("the api returns a 200")
-      assertThat(actual.status).isEqualTo(200)
+      assert(actual.status == 200)
 
       verify(
         delayedFunction(1.seconds)(
@@ -73,19 +72,19 @@ class OutcomeAuditDirectSpec extends BaseSpec with WireMockTrait {
             .withRequestBody(
               matchingJsonPath(
                 "$[?(" +
-                s"@.auditSource == '${TestConfiguration.expectedServiceName}'" +
-                s"&& @.auditType == 'BankAccountInsightsCipOutcomeSubmitted'" +
-                s"&& @.detail.userAgent == '${TestConfiguration.userAgent}'" +
-                s"&& @.detail.submitter == 'ipp'" +
-                s"&& @.detail.submission.submissionType == 'bank-account'" +
-                s"&& @.detail.submission.submissionAttribute.sortCode == '608580'" +
-                s"&& @.detail.submission.submissionAttribute.accountNumber == '48835625'" +
-                s"&& @.detail.outcome.outcomeType == 'Insights'" +
-                s"&& @.detail.outcome.decision == 'ACCEPTED'" +
-                s"&& @.detail.outcome.reasons == ['Some reason']" +
-              ")]"
+                  s"@.auditSource == '${TestConfiguration.expectedServiceName}'" +
+                  s"&& @.auditType == 'BankAccountInsightsCipOutcomeSubmitted'" +
+                  s"&& @.detail.userAgent == '${TestConfiguration.userAgent}'" +
+                  s"&& @.detail.submitter == 'ipp'" +
+                  s"&& @.detail.submission.submissionType == 'bank-account'" +
+                  s"&& @.detail.submission.submissionAttribute.sortCode == '608580'" +
+                  s"&& @.detail.submission.submissionAttribute.accountNumber == '48835625'" +
+                  s"&& @.detail.outcome.outcomeType == 'Insights'" +
+                  s"&& @.detail.outcome.decision == 'ACCEPTED'" +
+                  s"&& @.detail.outcome.reasons == ['Some reason']" +
+                  ")]"
+              )
             )
-          )
         )
       )
     }
@@ -97,7 +96,7 @@ class OutcomeAuditDirectSpec extends BaseSpec with WireMockTrait {
       val actual = outcomeAuditCheckHelper.callOutcomeAuditingAPIDirectly(OutcomeAudit.paymentAllocationInput)
 
       Then("the api returns a 200")
-      assertThat(actual.status).isEqualTo(200)
+      assert(actual.status == 200)
 
       verify(
         delayedFunction(1.seconds)(
@@ -105,23 +104,23 @@ class OutcomeAuditDirectSpec extends BaseSpec with WireMockTrait {
             .withRequestBody(
               matchingJsonPath(
                 "$[?(" +
-                s"@.auditSource == '${TestConfiguration.expectedServiceName}'" +
-                s"&& @.auditType == 'BankAccountPaymentAllocationCipOutcomeSubmitted'" +
-                s"&& @.detail.userAgent == '${TestConfiguration.userAgent}'" +
-                s"&& @.detail.submitter == 'ipp'" +
-                s"&& @.detail.submission.submissionType == 'bank-account'" +
-                s"&& @.detail.submission.submissionAttribute.sortCode == '608580'" +
-                s"&& @.detail.submission.submissionAttribute.accountNumber == '48835625'" +
-                s"&& @.detail.outcome.outcomeType == 'PaymentAllocation'" +
-                s"&& @.detail.outcome.decision == 'PAYMENT_ALLOCATED'" +
-                s"&& @.detail.outcome.reasons == ['ACCOUNT_ALLOCATED_TO_DETAILS']" +
-                s"&& @.detail.outcome.evidence.sa_utr == '0123456789'" +
-                s"&& @.detail.outcome.evidence.paye_ref == 'ABC/A1234'" +
-                s"&& @.detail.outcome.evidence.full_name == 'Jane Smith'" +
-                s"&& @.detail.outcome.evidence.user_id == '0123456789112345'" +
-              ")]"
+                  s"@.auditSource == '${TestConfiguration.expectedServiceName}'" +
+                  s"&& @.auditType == 'BankAccountPaymentAllocationCipOutcomeSubmitted'" +
+                  s"&& @.detail.userAgent == '${TestConfiguration.userAgent}'" +
+                  s"&& @.detail.submitter == 'ipp'" +
+                  s"&& @.detail.submission.submissionType == 'bank-account'" +
+                  s"&& @.detail.submission.submissionAttribute.sortCode == '608580'" +
+                  s"&& @.detail.submission.submissionAttribute.accountNumber == '48835625'" +
+                  s"&& @.detail.outcome.outcomeType == 'PaymentAllocation'" +
+                  s"&& @.detail.outcome.decision == 'PAYMENT_ALLOCATED'" +
+                  s"&& @.detail.outcome.reasons == ['ACCOUNT_ALLOCATED_TO_DETAILS']" +
+                  s"&& @.detail.outcome.evidence.sa_utr == '0123456789'" +
+                  s"&& @.detail.outcome.evidence.paye_ref == 'ABC/A1234'" +
+                  s"&& @.detail.outcome.evidence.full_name == 'Jane Smith'" +
+                  s"&& @.detail.outcome.evidence.user_id == '0123456789112345'" +
+                  ")]"
+              )
             )
-          )
         )
       )
     }

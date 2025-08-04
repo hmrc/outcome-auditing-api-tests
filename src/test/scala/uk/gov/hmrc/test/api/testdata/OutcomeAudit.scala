@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 HM Revenue & Customs
+ * Copyright 2025 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,66 +16,66 @@
 
 package uk.gov.hmrc.test.api.testdata
 
-import uk.gov.hmrc.outcomeauditing.model.request.nino.NinoInsightsOutcomeRequest
+import play.api.libs.json.{JsValue, Json}
 
 object OutcomeAudit {
 
-  val ninoInsightsInput: String =
-    """{
-      |  "correlationId": "33df37a4-a535-41fe-8032-7ab718b45526",
-      |  "submitter": "dfe",
-      |  "submission": {
-      |    "submissionType": "nino",
-      |    "submissionAttribute": {
-      |      "nino": "AB608580X"
-      |    }
-      |  },
-      |  "outcome": {
-      |    "outcomeType": "Insights",
-      |    "decision": "ACCEPTED",
-      |    "reasons": ["Some reason"]
-      |  }
-      |}""".stripMargin
+  val ninoInsightsInput: JsValue =
+    Json.obj(
+      "correlationId" -> "33df37a4-a535-41fe-8032-7ab718b45526",
+      "submitter"     -> "dfe",
+      "submission"    -> Json.obj(
+        "submissionType"      -> "nino",
+        "submissionAttribute" -> Json.obj(
+          "nino" -> "AB608580X"
+        )
+      ),
+      "outcome"       -> Json.obj(
+        "outcomeType" -> "Insights",
+        "decision"    -> "ACCEPTED",
+        "reasons"     -> Json.arr("Some reason")
+      )
+    )
 
-  val bankAccountInput: String =
-    """{
-      |  "correlationId": "33df37a4-a535-41fe-8032-7ab718b45526",
-      |  "submitter": "ipp",
-      |  "submission": {
-      |    "submissionType": "bank-account",
-      |    "submissionAttribute": {
-      |      "sortCode": "608580",
-      |      "accountNumber": "48835625"
-      |    }
-      |  },
-      |  "outcome": {
-      |    "outcomeType": "Insights",
-      |    "decision": "ACCEPTED",
-      |    "reasons": ["Some reason"]
-      |  }
-      |}""".stripMargin
+  val bankAccountInput: JsValue =
+    Json.obj(
+      "correlationId" -> "33df37a4-a535-41fe-8032-7ab718b45526",
+      "submitter"     -> "ipp",
+      "submission"    -> Json.obj(
+        "submissionType"      -> "bank-account",
+        "submissionAttribute" -> Json.obj(
+          "sortCode"      -> "608580",
+          "accountNumber" -> "48835625"
+        )
+      ),
+      "outcome"       -> Json.obj(
+        "outcomeType" -> "Insights",
+        "decision"    -> "ACCEPTED",
+        "reasons"     -> Json.arr("Some reason")
+      )
+    )
 
-  val paymentAllocationInput: String =
-    """{
-      |  "correlationId": "33df37a4-a535-41fe-8032-7ab718b45526",
-      |  "submitter": "ipp",
-      |  "submission": {
-      |    "submissionType": "bank-account",
-      |    "submissionAttribute": {
-      |      "sortCode": "608580",
-      |      "accountNumber": "48835625"
-      |    }
-      |  },
-      |  "outcome": {
-      |    "outcomeType": "PaymentAllocation",
-      |    "decision": "PAYMENT_ALLOCATED",
-      |    "reasons": ["ACCOUNT_ALLOCATED_TO_DETAILS"],
-      |    "evidence": {
-      |      "sa_utr": "0123456789",
-      |      "paye_ref": "ABC/A1234",
-      |      "full_name": "Jane Smith",
-      |      "user_id": "0123456789112345"
-      |    }
-      |  }
-      |}""".stripMargin
+  val paymentAllocationInput: JsValue =
+    Json.obj(
+      "correlationId" -> "33df37a4-a535-41fe-8032-7ab718b45526",
+      "submitter"     -> "ipp",
+      "submission"    -> Json.obj(
+        "submissionType"      -> "bank-account",
+        "submissionAttribute" -> Json.obj(
+          "sortCode"      -> "608580",
+          "accountNumber" -> "48835625"
+        )
+      ),
+      "outcome"       -> Json.obj(
+        "outcomeType" -> "PaymentAllocation",
+        "decision"    -> "PAYMENT_ALLOCATED",
+        "reasons"     -> Json.arr("ACCOUNT_ALLOCATED_TO_DETAILS"),
+        "evidence"    -> Json.obj(
+          "sa_utr"    -> "0123456789",
+          "paye_ref"  -> "ABC/A1234",
+          "full_name" -> "Jane Smith",
+          "user_id"   -> "0123456789112345"
+        )
+      )
+    )
 }
