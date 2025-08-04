@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 HM Revenue & Customs
+ * Copyright 2025 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,9 +25,9 @@ import scala.concurrent.Await
 import scala.concurrent.duration.DurationInt
 
 class OutcomeAuditProxyService extends HttpClient {
-  var outcomeAuditing: String             = TestConfiguration.url("outcome-auditing-proxy")
-  val userAgent: String = TestConfiguration.userAgent
-  val contentType: String = "application/json"
+  var outcomeAuditing: String = TestConfiguration.url("outcome-auditing-proxy")
+  val userAgent: String       = TestConfiguration.userAgent
+  val contentType: String     = "application/json"
 
   def postOutcomeAuditViaProxy(
     outcomeAuditDetails: String,
@@ -37,9 +37,10 @@ class OutcomeAuditProxyService extends HttpClient {
       post(
         s"$host/${Endpoints.OUTCOME_AUDITING}",
         outcomeAuditDetails,
-        ("Content-Type", s"${contentType}"),
-        ("User-Agent", s"${userAgent}"),
-      ), 10.seconds
+        ("Content-Type", s"$contentType"),
+        ("User-Agent", s"$userAgent")
+      ),
+      10.seconds
     )
 
   def postInvalidOutcomeAuditCheck(
@@ -50,7 +51,8 @@ class OutcomeAuditProxyService extends HttpClient {
       post(
         s"$host/${Endpoints.OUTCOME_AUDITING}",
         outcomeAuditDetails,
-        ("Content-Type", "application/json"),
-      ), 10.seconds
+        ("Content-Type", "application/json")
+      ),
+      10.seconds
     )
 }

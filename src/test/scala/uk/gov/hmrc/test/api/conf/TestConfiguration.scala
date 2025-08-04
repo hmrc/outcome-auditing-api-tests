@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 HM Revenue & Customs
+ * Copyright 2025 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -33,7 +33,7 @@ object TestConfiguration {
     s"$host${serviceRoute(service)}"
   }
 
-  def userAgent: String           = envConfig.getString("user-agents.test-http-client")
+  def userAgent: String = envConfig.getString("user-agents.test-http-client")
 
   def expectedServiceName: String = envConfig.getString("user-agents.service-name")
 

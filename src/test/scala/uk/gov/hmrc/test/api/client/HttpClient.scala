@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 HM Revenue & Customs
+ * Copyright 2025 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,7 +16,7 @@
 
 package uk.gov.hmrc.test.api.client
 
-import akka.actor.ActorSystem
+import org.apache.pekko.actor.ActorSystem
 import play.api.libs.ws.DefaultBodyWritables._
 import play.api.libs.ws.{DefaultWSProxyServer, StandaloneWSRequest}
 import play.api.libs.ws.ahc.StandaloneAhcWSClient
@@ -28,8 +28,8 @@ trait HttpClient {
 
   implicit val actorSystem: ActorSystem = ActorSystem()
   val wsClient: StandaloneAhcWSClient   = StandaloneAhcWSClient()
-  val zapHost: Option[String] = sys.env.get("ZAP_HOST")
-  val defaultZapHost: String = "localhost:11000"
+  val zapHost: Option[String]           = sys.env.get("ZAP_HOST")
+  val defaultZapHost: String            = "localhost:11000"
   implicit val ec: ExecutionContext     = ExecutionContext.global
 
   def zapProxy: DefaultWSProxyServer = {
