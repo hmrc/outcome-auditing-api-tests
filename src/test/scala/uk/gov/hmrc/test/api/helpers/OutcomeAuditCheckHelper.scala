@@ -26,4 +26,7 @@ class OutcomeAuditCheckHelper {
 
   def callOutcomeAuditingAPIDirectly(outcomeAuditDetails: JsValue): StandaloneWSRequest#Self#Response =
     outcomeAuditDirectService.postOutcomeAuditDirectly(outcomeAuditDetails)
+
+  def callOutcomeAuditingV2APIDirectly(outcomeAuditDetails: JsValue): StandaloneWSRequest#Self#Response =
+    outcomeAuditDirectService.postOutcomeAuditV2Directly(outcomeAuditDetails)
 }

@@ -18,4 +18,6 @@ package uk.gov.hmrc.test.api.helpers
 
 object Endpoints {
   val OUTCOME_AUDITING = "report/outcome"
+
+  val OUTCOME_AUDITING_V2 = "outcome-auditing/v2/outcomes/report"
 }
