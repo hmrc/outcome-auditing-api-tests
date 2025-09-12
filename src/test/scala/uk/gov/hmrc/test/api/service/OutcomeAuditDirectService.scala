@@ -44,4 +44,15 @@ class OutcomeAuditDirectService extends HttpClient {
         .post(Json.toJson(outcomeAuditDetails)),
       10.seconds
     )
+
+  def postOutcomeAuditV2Directly(outcomeAuditDetails: JsValue): StandaloneWSRequest#Self#Response =
+    Await.result(
+      mkRequest(s"$outcomeAuditing/${Endpoints.OUTCOME_AUDITING_V2}")
+        .withHttpHeaders(
+          "Content-Type"  -> s"$contentType",
+          "User-Agent"    -> s"$userAgent"
+        )
+        .post(Json.toJson(outcomeAuditDetails)),
+      10.seconds
+    )
 }
