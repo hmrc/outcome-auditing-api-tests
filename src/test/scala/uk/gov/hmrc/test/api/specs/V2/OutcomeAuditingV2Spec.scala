@@ -42,8 +42,10 @@ class OutcomeAuditingV2Spec extends BaseSpec with OutcomeAuditV2 with WireMockTr
               "$[?(" +
                 s"@.auditSource == '${TestConfiguration.expectedServiceName}'" +
                 s"&& @.auditType == 'OutcomeReportingSubmitted'" +
-                s"&& @.detail.correlationData.correlationId == '33df37a4-a535-41fe-8032-7ab718b45526'" +
-                s"&& @.detail.correlationData.correlationIdType == 'ACKNOWLEDGEMENT_ID'" +
+                s"&& @.detail.correlationData[0].correlationId == '33df37a4-a535-41fe-8032-7ab718b45526'" +
+                s"&& @.detail.correlationData[0].correlationIdType == 'SUBMISSION_ID'" +
+                s"&& @.detail.correlationData[1].correlationId == '22bbf4e1-5f4c-4d2e-9c8b-1f4e6e8c9a12'" +
+                s"&& @.detail.correlationData[1].correlationIdType == 'SESSION_ID'" +
                 s"&& @.detail.submitter == 'sa-reg'" +
                 s"&& @.detail.decisionData[0].businessEvent == 'SARegistrationSubmitted'" +
                 s"&& @.detail.decisionData[0].decision == 'ACCEPT'" +

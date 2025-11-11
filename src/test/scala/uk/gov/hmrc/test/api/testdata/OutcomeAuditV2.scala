@@ -21,10 +21,16 @@ import play.api.libs.json.{JsValue, Json}
 trait OutcomeAuditV2 {
   val validOutcomeAuditingV2Json: JsValue = Json.parse(
     """{
-      |  "correlationData": {
-      |    "correlationId": "33df37a4-a535-41fe-8032-7ab718b45526",
-      |    "correlationIdType": "ACKNOWLEDGEMENT_ID"
-      |  },
+      |  "correlationData": [
+      |     {
+      |       "correlationId": "33df37a4-a535-41fe-8032-7ab718b45526",
+      |       "correlationIdType": "SUBMISSION_ID"
+      |     },
+      |     {
+      |       "correlationId": "22bbf4e1-5f4c-4d2e-9c8b-1f4e6e8c9a12",
+      |       "correlationIdType": "SESSION_ID"
+      |     }
+      |  ],
       |  "submitter": "sa-reg",
       |  "decisionData": [
       |    {
@@ -57,9 +63,15 @@ trait OutcomeAuditV2 {
 
   val invalidOutcomeAuditingV2Json: JsValue = Json.parse(
     """{
-      |  "correlationData": {
-      |    "correlationId": "33df37a4-a535-41fe-8032-7ab718b45526"
-      |  },
+      |  "correlationData": [
+      |     {
+      |       "correlationId": "33df37a4-a535-41fe-8032-7ab718b45526",
+      |       "correlationIdType": "ACKNOWLEDGEMENT_ID"
+      |     },
+      |     {
+      |       "correlationId": "22df37a4-a535-41fe-8032-7ab718b45526"
+      |     }
+      |  ],
       |  "submitter": "sa-reg",
       |  "decisionData": [
       |    {
