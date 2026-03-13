@@ -23,10 +23,12 @@ import com.github.tomakehurst.wiremock.core.WireMockConfiguration.wireMockConfig
 
 import com.typesafe.config.{Config, ConfigFactory}
 import org.scalatest.{BeforeAndAfterAll, BeforeAndAfterEach, Suite}
+import org.scalatest.concurrent.Eventually
+import org.scalatest.time.{Millis, Seconds, Span}
 
 import scala.concurrent.duration.FiniteDuration
 
-trait WireMockTrait extends BeforeAndAfterEach with BeforeAndAfterAll {
+trait WireMockTrait extends BeforeAndAfterEach with BeforeAndAfterAll with Eventually {
 
   this: Suite =>
 
@@ -68,7 +70,8 @@ trait WireMockTrait extends BeforeAndAfterEach with BeforeAndAfterAll {
   }
 
   def delayedFunction[T](duration: FiniteDuration)(f: => T): T = {
-    Thread.sleep(duration.toMillis)
-    f
+    eventually(timeout(Span(duration.toSeconds, Seconds)), interval(Span(100, Millis))) {
+      f
+    }
   }
 }
