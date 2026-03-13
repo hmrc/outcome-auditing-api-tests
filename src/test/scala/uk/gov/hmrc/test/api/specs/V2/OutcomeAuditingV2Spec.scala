@@ -21,6 +21,9 @@ import uk.gov.hmrc.test.api.conf.TestConfiguration
 import uk.gov.hmrc.test.api.specs.{BaseSpec, WireMockTrait}
 import uk.gov.hmrc.test.api.testdata.OutcomeAuditV2
 
+import scala.concurrent.Await
+import scala.concurrent.duration.DurationInt
+
 class OutcomeAuditingV2Spec extends BaseSpec with OutcomeAuditV2 with WireMockTrait {
 
   Feature("Verifying Outcome Auditing V2 API directly") {
@@ -30,7 +33,7 @@ class OutcomeAuditingV2Spec extends BaseSpec with OutcomeAuditV2 with WireMockTr
       Given("a valid outcome payload is provided")
 
       When("the outcome auditing V2 api is invoked directly")
-      val actual = outcomeAuditCheckHelper.callOutcomeAuditingV2APIDirectly(validOutcomeAuditingV2Json)
+      val actual = Await.result(outcomeAuditCheckHelper.callOutcomeAuditingV2APIDirectly(validOutcomeAuditingV2Json), 10.seconds)
 
       Then("the api returns a 201")
       assert(actual.status == 201)
@@ -68,7 +71,7 @@ class OutcomeAuditingV2Spec extends BaseSpec with OutcomeAuditV2 with WireMockTr
       Given("an invalid outcome payload is provided")
 
       When("the outcome auditing V2 api is invoked directly")
-      val actual = outcomeAuditCheckHelper.callOutcomeAuditingV2APIDirectly(invalidOutcomeAuditingV2Json)
+      val actual = Await.result(outcomeAuditCheckHelper.callOutcomeAuditingV2APIDirectly(invalidOutcomeAuditingV2Json), 10.seconds)
 
       Then("the api returns a 400")
       assert(actual.status == 400)

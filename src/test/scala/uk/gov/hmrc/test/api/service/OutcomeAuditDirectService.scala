@@ -23,8 +23,7 @@ import uk.gov.hmrc.apitestrunner.http.HttpClient
 import uk.gov.hmrc.test.api.conf.TestConfiguration
 import uk.gov.hmrc.test.api.helpers.Endpoints
 
-import scala.concurrent.Await
-import scala.concurrent.duration.DurationInt
+import scala.concurrent.Future
 
 class OutcomeAuditDirectService extends HttpClient {
 
@@ -33,26 +32,20 @@ class OutcomeAuditDirectService extends HttpClient {
   val basicAuth: String       = "Basic b3V0Y29tZS1hdWRpdGluZzpsb2NhbC10ZXN0LXRva2Vu"
   val contentType: String     = "application/json"
 
-  def postOutcomeAuditDirectly(outcomeAuditDetails: JsValue): StandaloneWSRequest#Self#Response =
-    Await.result(
-      mkRequest(s"$outcomeAuditing/${Endpoints.OUTCOME_AUDITING}")
-        .withHttpHeaders(
-          "Content-Type"  -> s"$contentType",
-          "User-Agent"    -> s"$userAgent",
-          "Authorization" -> s"$basicAuth"
-        )
-        .post(Json.toJson(outcomeAuditDetails)),
-      10.seconds
-    )
+  def postOutcomeAuditDirectly(outcomeAuditDetails: JsValue): Future[play.api.libs.ws.StandaloneWSResponse] =
+    mkRequest(s"$outcomeAuditing/${Endpoints.OUTCOME_AUDITING}")
+      .withHttpHeaders(
+        "Content-Type"  -> s"$contentType",
+        "User-Agent"    -> s"$userAgent",
+        "Authorization" -> s"$basicAuth"
+      )
+      .post(Json.toJson(outcomeAuditDetails))
 
-  def postOutcomeAuditV2Directly(outcomeAuditDetails: JsValue): StandaloneWSRequest#Self#Response =
-    Await.result(
-      mkRequest(s"$outcomeAuditing/${Endpoints.OUTCOME_AUDITING_V2}")
-        .withHttpHeaders(
-          "Content-Type"  -> s"$contentType",
-          "User-Agent"    -> s"$userAgent"
-        )
-        .post(Json.toJson(outcomeAuditDetails)),
-      10.seconds
-    )
+  def postOutcomeAuditV2Directly(outcomeAuditDetails: JsValue): Future[play.api.libs.ws.StandaloneWSResponse] =
+    mkRequest(s"$outcomeAuditing/${Endpoints.OUTCOME_AUDITING_V2}")
+      .withHttpHeaders(
+        "Content-Type"  -> s"$contentType",
+        "User-Agent"    -> s"$userAgent"
+      )
+      .post(Json.toJson(outcomeAuditDetails))
 }
