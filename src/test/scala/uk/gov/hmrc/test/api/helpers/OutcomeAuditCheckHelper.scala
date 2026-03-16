@@ -20,13 +20,15 @@ import play.api.libs.json.JsValue
 import play.api.libs.ws.StandaloneWSRequest
 import uk.gov.hmrc.test.api.service.OutcomeAuditDirectService
 
+import scala.concurrent.Future
+
 class OutcomeAuditCheckHelper {
 
   val outcomeAuditDirectService: OutcomeAuditDirectService = new OutcomeAuditDirectService
 
-  def callOutcomeAuditingAPIDirectly(outcomeAuditDetails: JsValue): StandaloneWSRequest#Self#Response =
+  def callOutcomeAuditingAPIDirectly(outcomeAuditDetails: JsValue): Future[play.api.libs.ws.StandaloneWSResponse] =
     outcomeAuditDirectService.postOutcomeAuditDirectly(outcomeAuditDetails)
 
-  def callOutcomeAuditingV2APIDirectly(outcomeAuditDetails: JsValue): StandaloneWSRequest#Self#Response =
+  def callOutcomeAuditingV2APIDirectly(outcomeAuditDetails: JsValue): Future[play.api.libs.ws.StandaloneWSResponse] =
     outcomeAuditDirectService.postOutcomeAuditV2Directly(outcomeAuditDetails)
 }

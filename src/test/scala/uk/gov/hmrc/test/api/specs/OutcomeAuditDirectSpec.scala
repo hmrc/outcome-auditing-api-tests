@@ -16,6 +16,8 @@
 
 package uk.gov.hmrc.test.api.specs
 
+import scala.concurrent.Await
+import scala.concurrent.duration.DurationInt
 import com.github.tomakehurst.wiremock.client.WireMock.{matchingJsonPath, postRequestedFor, urlEqualTo, verify}
 import uk.gov.hmrc.test.api.conf.TestConfiguration
 import uk.gov.hmrc.test.api.testdata.OutcomeAudit
@@ -30,7 +32,7 @@ class OutcomeAuditDirectSpec extends BaseSpec with WireMockTrait {
       Given("a valid nino insights outcome is provided")
 
       When("the outcome audit api is invoked directly")
-      val actual = outcomeAuditCheckHelper.callOutcomeAuditingAPIDirectly(OutcomeAudit.ninoInsightsInput)
+      val actual = Await.result(outcomeAuditCheckHelper.callOutcomeAuditingAPIDirectly(OutcomeAudit.ninoInsightsInput), 10.seconds)
 
       Then("the api returns a 200")
       assert(actual.status == 200)
@@ -61,7 +63,7 @@ class OutcomeAuditDirectSpec extends BaseSpec with WireMockTrait {
       Given("a valid bank account insights outcome is provided")
 
       When("the outcome audit api is invoked directly")
-      val actual = outcomeAuditCheckHelper.callOutcomeAuditingAPIDirectly(OutcomeAudit.bankAccountInput)
+      val actual = Await.result(outcomeAuditCheckHelper.callOutcomeAuditingAPIDirectly(OutcomeAudit.bankAccountInput), 10.seconds)
 
       Then("the api returns a 200")
       assert(actual.status == 200)
@@ -93,7 +95,7 @@ class OutcomeAuditDirectSpec extends BaseSpec with WireMockTrait {
       Given("a valid bank account payment allocation outcome is provided")
 
       When("the outcome audit api is invoked directly")
-      val actual = outcomeAuditCheckHelper.callOutcomeAuditingAPIDirectly(OutcomeAudit.paymentAllocationInput)
+      val actual = Await.result(outcomeAuditCheckHelper.callOutcomeAuditingAPIDirectly(OutcomeAudit.paymentAllocationInput), 10.seconds)
 
       Then("the api returns a 200")
       assert(actual.status == 200)

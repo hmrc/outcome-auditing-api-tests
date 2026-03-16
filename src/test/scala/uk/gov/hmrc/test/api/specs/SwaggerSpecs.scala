@@ -56,7 +56,7 @@ trait SwaggerSpec extends HttpClient {
 
   val applicationJson = "application/json"
 
-  def validOpenApiSpecAt(host: String, openApiUrl: String, userAgent: String = "allowed-test-hmrc-service") {
+  def validOpenApiSpecAt(host: String, openApiUrl: String, userAgent: String = "allowed-test-hmrc-service"): Unit = {
 
     "should parse" in {
       val result = new OpenAPIV3Parser().readLocation(s"$host$openApiUrl", null, parseOptions)
