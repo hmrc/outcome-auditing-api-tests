@@ -51,7 +51,7 @@ class OutcomeAuditingV2Spec extends BaseSpec with OutcomeAuditV2 with WireMockTr
                 s"&& @.detail.correlationData[1].correlationIdType == 'SESSION_ID'" +
                 s"&& @.detail.submitter == 'sa-reg'" +
                 s"&& @.detail.decisionData[0].businessEvent == 'SARegistrationSubmitted'" +
-                s"&& @.detail.decisionData[0].decision == 'ACCEPT'" +
+                s"&& @.detail.decisionData[0].decision == 'ACCEPTED'" +
                 s"&& @.detail.decisionData[0].evidence[0].decisionMethod == 'AUTOMATIC'" +
                 s"&& @.detail.decisionData[0].evidence[0].decisionSystem == 'sa-reg'" +
                 s"&& @.detail.decisionData[0].evidence[0].decisionTimestamp == '2025-07-09T08:14:13Z'" +

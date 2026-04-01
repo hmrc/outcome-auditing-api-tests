@@ -35,7 +35,7 @@ trait OutcomeAuditV2 {
       |  "decisionData": [
       |    {
       |      "businessEvent": "SARegistrationSubmitted",
-      |      "decision": "ACCEPT",
+      |      "decision": "ACCEPTED",
       |      "reasons": [
       |        "LOW_RISK_SCORE"
       |      ],
@@ -76,7 +76,7 @@ trait OutcomeAuditV2 {
       |  "decisionData": [
       |    {
       |      "businessEvent": "SARegistrationSubmitted",
-      |      "decision": "ACCEPT",
+      |      "decision": "ACCEPTED",
       |      "reasons": [
       |        "LOW_RISK_SCORE"
       |      ],
