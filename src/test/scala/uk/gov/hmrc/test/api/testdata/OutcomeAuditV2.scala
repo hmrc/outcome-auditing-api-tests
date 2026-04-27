@@ -56,7 +56,8 @@ trait OutcomeAuditV2 {
       |            }
       |          ]
       |        }
-      |      ]
+      |      ],
+      |      "caseNotes": "test case notes for SA registration submission"
       |    }
       |  ]
       |}""".stripMargin)
@@ -97,7 +98,8 @@ trait OutcomeAuditV2 {
       |            }
       |          ]
       |        }
-      |      ]
+      |      ],
+      |      "caseNotes": "test case notes for SA registration submission"
       |    }
       |  ]
       |}""".stripMargin) // Missing correlationIdType in correlationData

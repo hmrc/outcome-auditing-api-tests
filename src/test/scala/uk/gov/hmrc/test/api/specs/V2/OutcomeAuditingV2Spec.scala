@@ -60,6 +60,7 @@ class OutcomeAuditingV2Spec extends BaseSpec with OutcomeAuditV2 with WireMockTr
                 s"&& @.detail.decisionData[0].evidence[0].attributes[0].attributeValue == '123456789'" +
                 s"&& @.detail.decisionData[0].evidence[0].attributes[1].attributeType == 'NINO'" +
                 s"&& @.detail.decisionData[0].evidence[0].attributes[1].attributeValue == '987654321'" +
+                s"&& @.detail.decisionData[0].caseNotes == 'test case notes for SA registration submission'" +
                 ")]"
             )
           )
